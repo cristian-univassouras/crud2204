@@ -2,9 +2,12 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
 
-from database import get_db
+from database import get_db, engine
 import models
 import schemas
+
+# Cria as tabelas no banco de dados se elas não existirem
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Gerenciador de Tarefas API")
 
